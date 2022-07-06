@@ -13,7 +13,7 @@ import {
   KakaoLogin,
   LoginField,
 } from '../../components/Container';
-import { Button, GuestButton } from '../../components/Button';
+import { Button } from '../../components/Button';
 import { BigInput } from '../Input';
 
 import styled from 'styled-components';
@@ -24,6 +24,14 @@ export const SignupButton = styled.h3`
 
 export const SignupLine = styled.div`
   margin: 5%;
+  > a {
+    color: darkblue;
+    text-decoration: line;
+    margin-left: 5%;
+    &:hover {
+      color: darkgray;
+    }
+  }
 `;
 
 export const LoginText = styled.div`
@@ -44,10 +52,6 @@ function Login() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMsg, setModalMsg] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const toSignup = () => {
-    navigate('/signup');
-  };
 
   const modalHandler = () => {
     setModalOpen(false);
@@ -136,12 +140,8 @@ function Login() {
             <Button onClick={handleLogin}>로그인</Button>
           </div>
           <SignupLine>
-            <span>
-              Conimals가 처음이신가요?
-              <SignupButton>
-                <GuestButton onClick={toSignup}>회원가입</GuestButton>
-              </SignupButton>
-            </span>
+            <span>Conimals가 처음이신가요?</span>
+            <a href='/signup'>회원가입</a>
           </SignupLine>
           <hr className='line' />
           <KakaoLogin
