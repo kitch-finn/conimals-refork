@@ -6,16 +6,16 @@ import {
   emailValidator,
 } from '../../utils/validator';
 
-import Logo from '../../assets/Conimals_logo_horizontal1.png';
 import ConfirmModal from '../Modal/ConfirmModals';
 import Loading from '../../utils/LoadingIndicator';
-import SignupsImg from '../../assets/signup.png';
-import { Button } from '../../components/Button';
+import { Button } from '../Button';
 import { ShadowBigInput } from '../Input';
 
 import styled from 'styled-components';
+import axios, { AxiosResponse } from 'axios';
 
-const axios = require('axios');
+const SignupsImg = require('../../assets/signup.png');
+const Logo = require('../../assets/Conimals_logo_horizontal1.png');
 
 const SignupContainer = styled.div`
   display: flex;
@@ -69,10 +69,11 @@ function Signup() {
     userName: '',
     userEmail: '',
     password: '',
+    retypePassword: '',
   });
 
-  const [passwordError, setPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -82,7 +83,7 @@ function Signup() {
     setModalOpen(false);
   };
 
-  const handleInputValue = (key) => (e) => {
+  const handleInputValue = (key: any) => (e: { target: { value: string } }) => {
     setUserinfo({ ...userinfo, [key]: e.target.value });
   };
 
@@ -108,20 +109,23 @@ function Signup() {
       setConfirmPasswordError(true);
       setLoading(false);
     } else {
-      axios.post(
-        `${process.env.REACT_APP_API_URL}/users/signup`,
-        {
-          userName: userinfo.userName,
-          userEmail: userinfo.userEmail,
-          password: userinfo.password,
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        }
-      );
-      setModalOpen(true);
-      setLoading(false);
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL}/users/signup`,
+          {
+            userName: userinfo.userName,
+            userEmail: userinfo.userEmail,
+            password: userinfo.password,
+          },
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          }
+        )
+        .then((res: AxiosResponse) => {
+          setModalOpen(true);
+          setLoading(false);
+        });
     }
   };
 
@@ -150,9 +154,9 @@ function Signup() {
           <ShadowBigInput
             type='text'
             className='input-signup'
-            placeholder='Petmily'
+            placeholder='12자 이하만 가능합니다.'
             onChange={handleInputValue('userName')}
-            maxLength='12'
+            maxLength={12}
           />
           {usernameError ? (
             <ValidateText>
@@ -162,8 +166,7 @@ function Signup() {
           <InputTitle>비밀번호</InputTitle>
 
           <ShadowBigInput
-            type='text'
-            className='input-signup'
+            type='password'
             placeholder='8자 이상의 영문, 숫자를 입력해주세요'
             onChange={handleInputValue('password')}
           />
@@ -175,9 +178,8 @@ function Signup() {
           <InputTitle>비밀번호 확인</InputTitle>
 
           <ShadowBigInput
-            type='text'
-            className='input-signup'
-            placeholder='8자 이상의 영문, 숫자를 입력해주세요'
+            type='password'
+            placeholder='비밀번호를 다시 입력해주세요'
             onChange={handleInputValue('retypePassword')}
           />
           {confirmPasswordError ? (

@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import ConfirmModal from '../Modal/ConfirmModals';
-import passwordValidator from '../../utils/validator';
 import Loading from '../../utils/LoadingIndicator';
 import { MypageContainer2 } from '../Container';
 import { EditInput, Line } from '../Input';
 import { Button } from '../Button';
+
+const passwordValidator = require('../../utils/validator');
 
 function ModifyPassword() {
   const [newPassword, setNewPassword] = useState({
@@ -49,7 +50,7 @@ function ModifyPassword() {
       });
   };
 
-  const checkPasswordBlur = (e) => {
+  const checkPasswordBlur = (e: { target: { value: any } }) => {
     if (!passwordValidator(e.target.value)) {
       setErrMsg('8자 이상의 영문, 숫자 조합이어야 합니다.');
     }

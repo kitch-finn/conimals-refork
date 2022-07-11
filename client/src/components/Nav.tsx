@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logout from './Sign/Logout';
-import Logo from '../assets/Conimals_logo_horizontal1.png';
 import styled from 'styled-components';
+
+const Logo = require('../assets/Conimals_logo_horizontal1.png');
 
 const Header = styled.header`
   width: 100%;

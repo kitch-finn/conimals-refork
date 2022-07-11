@@ -31,7 +31,7 @@ function App() {
       <Nav />
 
       <Routes>
-        <Route exact path='/' element={<Main />} />
+        <Route path='/' element={<Main />} />
         <Route path='/map' element={<ConimalsMap />} />
         <Route path='/policy' element={<Policy />} />
         <Route path='/test' element={<Test />} />

@@ -1,6 +1,7 @@
 import React from 'react';
-import Spinner from '../assets/Ball.gif';
 import styled from 'styled-components';
+
+const Spinner = require('../assets/Ball.gif');
 
 export const Background = styled.div`
   position: absolute;

@@ -4,19 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import ConfirmModal from '../Modal/ConfirmModals';
-import KakaoLoginImg from '../../img/kakao_login_large_wide.png';
-import Logo from '../../assets/Conimals_logo_horizontal1.png';
 import Loading from '../../utils/LoadingIndicator';
 import LoginVector from '../../assets/LoginVector';
-import {
-  LoginContainer,
-  KakaoLogin,
-  LoginField,
-} from '../../components/Container';
-import { Button } from '../../components/Button';
+import { LoginContainer, KakaoLogin, LoginField } from '../Container';
+import { Button } from '../Button';
 import { BigInput } from '../Input';
 
 import styled from 'styled-components';
+
+const KakaoLoginImg = require('../../img/kakao_login_large_wide.png');
+const Logo = require('../../assets/Conimals_logo_horizontal1.png');
 
 export const SignupButton = styled.h3`
   margin-left: 5%;
@@ -57,7 +54,7 @@ function Login() {
     setModalOpen(false);
   };
 
-  const handleInputValue = (key) => (e) => {
+  const handleInputValue = (key: string) => (e: { target: { value: any } }) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 

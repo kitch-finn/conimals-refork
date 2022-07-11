@@ -43,8 +43,11 @@ const Select = styled.div`
     background-color: #e49400;
   }
 `;
+interface ProgressBar {
+  progress: number;
+}
 
-const ProgressBar = styled.div`
+const ProgressBar = styled.div<{ progress: number }>`
   width: ${({ progress }) => progress}%;
   height: 1rem;
   background: linear-gradient(to left, rgb(255, 166, 166), rgb(126, 197, 255));
@@ -170,7 +173,7 @@ function Test() {
   return (
     <>
       {localStorage.getItem('guest') ? (
-        <SignsModal />
+        <SignsModal handleModal={undefined} />
       ) : (
         <>
           {localStorage.getItem('user') ||
@@ -331,7 +334,7 @@ function Test() {
               )}
             </>
           ) : (
-            <SignsModal />
+            <SignsModal handleModal={undefined} />
           )}
         </>
       )}
